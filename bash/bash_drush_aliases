@@ -1,0 +1,173 @@
+# Drush-Bash tricks 0.1
+# Copyright Nuvole 2010.
+# License: GPL 3, see http://www.gnu.org/licenses/gpl.html
+
+# For a quick start: copy this entire file to the end of the .bashrc
+# file in your home directory and it will be enabled at your next
+# login. See http://nuvole.org/node/26 for more details and options.
+
+# Drupal and Drush aliases.
+# To be added at the end of .bashrc.
+alias drsp='cp sites/default/default.settings.php sites/default/settings.php'
+alias dcc='drush cache-clear all -y'
+alias drdb='drush updb && drush cc all'
+alias drdu='drush sql-dump --ordered-dump --result-file=dump.sql'
+alias dren='drush pm-enable'
+alias drdis='drush pm-disable'
+alias dr='drush'
+
+# Completion. For personal use, just copy all the code below to
+# the end of .bashrc; for system-wide use, copy to a file like
+# /etc/bash_completion.d/drush_custom instead.
+
+_drupal_root() {
+    # Go up until we find index.php
+    current_dir=`pwd`;
+      while [ ${current_dir} != "/" -a -d "${current_dir}" -a \
+                  ! -f "${current_dir}/index.php" ] ;
+        do
+              current_dir=$(dirname "${current_dir}") ;
+          done
+              if [ "$current_dir" == "/" ] ; then
+                    exit 1 ;
+            else
+                  echo "$current_dir" ;
+            fi
+}
+
+_drupal_modules_in_dir()
+{
+    COMPREPLY=( $( compgen -W '$( command find $1 -regex ".*\.module" -exec basename {} .module \; 2> /dev/null )' -- $cur  ) )
+}
+
+_drupal_modules()
+{
+    local cur
+        COMPREPLY=()
+          cur=${COMP_WORDS[COMP_CWORD]}
+      local drupal_root=`_drupal_root` && \
+                          _drupal_modules_in_dir "$drupal_root/sites $drupal_root/profiles $drupal_root/modules"
+}
+
+_drupal_features_in_dir()
+{
+    COMPREPLY=( $( compgen -W '$( command find $1 -regex ".*\.features.inc" -exec basename {} .features.inc \; 2> /dev/null )' -- $cur  ) )
+}
+
+_drupal_features()
+{
+    local cur
+        COMPREPLY=()
+          cur=${COMP_WORDS[COMP_CWORD]}
+      local drupal_root=`_drupal_root` && \
+                          _drupal_features_in_dir "$drupal_root/sites $drupal_root/profiles $drupal_root/modules"
+}
+
+_drush_cmd()
+{
+  local cur
+  COMPREPLY=()
+  cur=${COMP_WORDS[COMP_CWORD]}
+
+  local names=$(for x in `drush --pipe --sort`; do echo ${x} ; done)
+  COMPREPLY=( $( compgen -W "${names}" -- $cur) )
+#  _drush_basic_cmd
+
+}
+
+_drush_basic_cmd()
+{
+    COMPREPLY=( $( compgen -W '$( command drush --pipe \; 2> /dev/null )' -- $cur  ) )
+}
+
+_drush_site_alias_names()
+{
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  local names=$(for x in `drush site-alias`; do echo ${x} ; done)
+  COMPREPLY=( $( compgen -W "${names}" -- ${cur}) )
+  return 0
+}
+
+# Change directory directly to a module or path under a Drupal install
+function cdd() {
+  if [ ${1:0:1} == '@' ] ; then
+    path=`drush $1 dd $2`
+  else
+    path=`drush dd $1`
+  fi
+
+  if [ "$path" ] ; then
+    cd "$path"
+  fi
+}
+
+function sql-dump() {
+  # Change this to put the output file in a different location
+  # here it is being placed in the users home directory (assumes *nix style)
+  outpath='~'
+
+  date=`date +"%Y%m%d"`
+  path=`drush $1 dd`
+
+  if [ "$path" ] ; then
+    arr=$(echo $path | tr "/" "\n")
+
+    for x in $arr
+    do
+      name=$x
+    done
+
+    sql=$date.$name.sql
+    outfile=$outpath/$sql
+    echo "Dumping the db to $outfile"
+   `drush $1 sql-dump --result-file=$outfile --gzip --ordered-dump`
+
+  fi
+}
+
+# FUN WITH DRUSH
+function sqlc() {
+    drush $1 sqlc;
+}
+
+function sql-connect() {
+    drush $1 sql-connect;
+}
+
+# Download and enable a module in one step
+drdlen() {
+  if [ ${1:0:1} == '@' ] ; then
+    drush $1 -y dl $2 && drush $1 -y en $2
+  else
+    drush -y dl $1 && drush -y en $1
+  fi
+}
+
+# Load a node and print it out to the screen
+function node_load {
+  if [ ${1:0:1} == '@' ] ; then
+    drush $1 ev "print_r(node_load($2));"
+  else
+    drush ev "print_r(node_load($1));"
+  fi
+}
+
+function node_load_type {
+  if [ ${1:0:1} == '@' ] ; then
+    drush $1 ev "print_r(node_load(array('type' => $2)));"
+  else
+    drush ev "print_r(node_load(array('type' => $1)));"
+  fi
+}
+
+complete -F _drupal_modules dren
+complete -F _drupal_modules drdis
+complete -F _drupal_features drfr
+complete -F _drupal_features drfu
+complete -F _drupal_features drfd
+complete -F _drupal_modules cdd
+complete -F _drush_cmd dr

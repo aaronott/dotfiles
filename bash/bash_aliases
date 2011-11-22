@@ -1,0 +1,19 @@
+alias ll='ls -lF'
+alias la='ls -A'
+alias l='ls -CF'
+alias '..'='cd ..'
+
+##
+# setup a resumable scp by using rsync instead
+#
+alias rscp='rsync --partial --progress --rsh=ssh'
+
+# Include me some drush stuff
+if [ -f ~/.bash_drush_aliases ]; then
+  . ~/.bash_drush_aliases
+fi
+
+# Include me some personal stuff
+if [ -f ~/.bash_personal_aliases ]; then
+  . ~/.bash_personal_aliases
+fi

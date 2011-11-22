@@ -1,0 +1,39 @@
+[submodule "vim/bundles/snipmate_for_django"]
+	path = vim/bundles/snipmate_for_django
+	url = git://github.com/robhudson/snipmate_for_django.git
+[submodule "vim/bundle/snipmate_for_django"]
+	path = vim/bundle/snipmate_for_django
+	url = git://github.com/robhudson/snipmate_for_django.git
+[submodule "vim/bundle/fugitive"]
+	path = vim/bundle/fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/nerdtree"]
+	path = vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule "vim/bundle/ack"]
+	path = vim/bundle/ack
+	url = git://github.com/mileszs/ack.vim.git
+[submodule "vim/bundle/abolish"]
+	path = vim/bundle/abolish
+	url = git://github.com/nvie/vim-abolish.git
+[submodule "vim/bundle/pep8"]
+	path = vim/bundle/pep8
+	url = git://github.com/nvie/vim-pep8.git
+[submodule "vim/bundle/pyflakes"]
+	path = vim/bundle/pyflakes
+	url = git://github.com/nvie/vim-pyflakes.git
+[submodule "vim/bundle/toggle_mouse"]
+	path = vim/bundle/toggle_mouse
+	url = git://github.com/nvie/vim-togglemouse.git
+[submodule "vim/bundle/pyunit"]
+	path = vim/bundle/pyunit
+	url = git://github.com/nvie/vim-pyunit.git
+[submodule "vim/bundle/rst_tables"]
+	path = vim/bundle/rst_tables
+	url = git://github.com/nvie/vim-rst-tables.git
+[submodule "vim/bundle/nerdcommenter"]
+	path = vim/bundle/nerdcommenter
+	url = http://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/bundle/gundo"]
+	path = vim/bundle/gundo
+	url = http://github.com/sjl/gundo.vim.git
