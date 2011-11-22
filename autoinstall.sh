@@ -28,6 +28,9 @@ ln -s "$INSTALL_TO/dotfiles/vimrc" .vimrc
 ln -s "$INSTALL_TO/dotfiles/vim" .vim
 touch ~/.vim/user.vim
 
+# for yankring
+mkdir ~/.vim/.tmp
+
 ln -s "$INSTALL_TO/dotfiles/bash/bash_aliases" .bash_aliases
 ln -s "$INSTALL_TO/dotfiles/bash/bash_drush_aliases" .bash_drush_aliases
 
