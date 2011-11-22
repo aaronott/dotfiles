@@ -16,7 +16,7 @@ die() {
 
 cd "$INSTALL_TO"
 git clone git://github.com/aaronott/dotfiles.git
-cd vimrc
+cd dotfiles
 
 # Download vim plugin bundles
 git submodule init
