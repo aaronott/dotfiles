@@ -1,6 +1,6 @@
 Overview
 ========
-So I picked up the vim stuff from https://github.com/aaronott/dotfiles and made
+So I picked up the vim stuff from https://github.com/nvie/vimrc and made
 some local modifications for myself.
 
 Quick installation
