@@ -47,7 +47,7 @@ set pastetoggle=<F2>            " when in insert mode, press <F11> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
 set fileformats="unix"
-set formatoptions+=1            " When wrapping paragraphs, don't end lines
+"set formatoptions+=1            " When wrapping paragraphs, don't end lines
                                 "    with 1-letter words (looks stupid)
 
 " Thanks to Steve Losh for this liberating tip
@@ -329,7 +329,7 @@ if has("autocmd")
 
         " Show invisible characters in all of these files
         autocmd filetype vim setlocal list
-        autocmd filetype javascript,css setlocal list
+        "autocmd filetype javascript,css setlocal list
         autocmd filetype php setlocal list
     augroup end "}}}
 
@@ -380,13 +380,13 @@ if has("autocmd")
 
         autocmd filetype javascript setlocal expandtab
         autocmd filetype javascript setlocal listchars=trail:·,extends:#,nbsp:·
-        autocmd filetype javascript setlocal foldmethod=marker foldmarker={,}
+        "autocmd filetype javascript setlocal foldmethod=marker foldmarker={,}
     augroup end "}}}
 
     augroup textile_files "{{{
         au!
 
-        autocmd filetype textile set tw=78 wrap
+        autocmd filetype textile set tw=78 
 
         " Render YAML front matter inside Textile documents as comments
         autocmd filetype textile syntax region frontmatter start=/\%^---$/ end=/^---$/
@@ -396,7 +396,7 @@ if has("autocmd")
     augroup php_files "{{{
         au!
 
-        autocmd filetype php,module,info,install,test set tw=78 wrap
+        autocmd filetype php,module,info,install,test set tw=78 
 
         " Render YAML front matter inside Textile documents as comments
         autocmd filetype php,module,info,install syntax region frontmatter start=/\%^---$/ end=/^---$/
