@@ -8,7 +8,7 @@ Quick installation
 Simply run this script to install and configure this vimrc in your `$HOME`
 dir::
 
-:	wget -O - https://github.com/aaronott/dotfiles/raw/master/autoinstall.sh | sh
+	wget -O - https://github.com/aaronott/dotfiles/raw/master/autoinstall.sh | sh
 
 Installing this vimrc manually
 ==============================
