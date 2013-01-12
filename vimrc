@@ -21,7 +21,7 @@ let mapleader=","
 " Editing behaviour {{{
 set showmode                    " always show what mode we're currently editing in
 set nowrap                      " don't wrap lines
-set tabstop=2                   " a tab is four spaces
+set tabstop=2                   " a tab is two spaces
 set softtabstop=2               " when hitting <BS>, pretend like a tab is removed, even if spaces
 set expandtab                   " expand tabs by default (overloadable per file type later)
 set shiftwidth=2                " number of spaces to use for autoindenting
@@ -85,7 +85,7 @@ if v:version >= 730
     set undodir=~/.vim/.undo,~/tmp,/tmp
 endif
 set nobackup                    " do not keep backup files, it's 70's style cluttering
-"set noswapfile                  " do not write annoying intermediate swap files,
+set noswapfile                  " do not write annoying intermediate swap files,
                                 "    who did ever restore from swap files anyway?
 "set directory=~/.vim/.tmp,~/tmp,/tmp
                                 " store swap files in one of these directories
@@ -122,7 +122,6 @@ endfunction
 
 " Highlighting {{{
 if &t_Co >= 256 || has("gui_running")
-   "colorscheme molokai
    colorscheme symfony
 endif
 
@@ -152,6 +151,9 @@ vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
 
 " Shortcut to make
 nmap mk :make<CR>
+
+" Shortcut to drush clear-cache
+nmap dcc :!drush cc all<CR><CR>
 
 " Swap implementations of ` and ' jump to markers
 " By default, ' jumps to the marked line, ` jumps to the marked line and
@@ -251,9 +253,6 @@ nnoremap <leader>v V`]
 " Put focus to the NERD Tree with F3 (tricked by quickly closing it and
 " immediately showing it again, since there is no :NERDTreeFocus command)
 nmap <leader>n :NERDTreeToggle<CR>
-"nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
-"nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
-"nmap <leader>N :NERDTreeClose<CR>
 
 " Store the bookmarks file
 let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
@@ -283,8 +282,6 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
 
 " TagList settings {{{
 nmap <leader>l :TlistToggle<CR>
-"nmap <leader>l :TlistClose<CR>:TlistToggle<CR>
-"nmap <leader>L :TlistClose<CR>
 
 " quit Vim when the TagList window is the last open window
 let Tlist_Exit_OnlyWindow=1         " quit when TagList is the last open window
@@ -373,7 +370,7 @@ if has("autocmd")
     augroup css_files "{{{
         au!
 
-        autocmd filetype css,less setlocal foldmethod=marker foldmarker={,}
+        "autocmd filetype css,less setlocal foldmethod=marker foldmarker={,}
     augroup end "}}}
 
     augroup javascript_files "{{{
@@ -400,8 +397,8 @@ if has("autocmd")
         autocmd filetype php,module,info,install,test set tw=78 
 
         " Render YAML front matter inside Textile documents as comments
-        autocmd filetype php,module,info,install syntax region frontmatter start=/\%^---$/ end=/^---$/
-        autocmd filetype php,module,info,install highlight link frontmatter Comment
+        autocmd filetype php,module,info,install,test syntax region frontmatter start=/\%^---$/ end=/^---$/
+        autocmd filetype php,module,info,install,test highlight link frontmatter Comment
     augroup end "}}}
 endif
 " }}}
