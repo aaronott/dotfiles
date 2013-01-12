@@ -17,3 +17,8 @@ fi
 if [ -f ~/.bash_personal_aliases ]; then
   . ~/.bash_personal_aliases
 fi
+
+# Bash prompt goodness.
+if [ -f ~/dotfiles/bash/bash_git_prompt ]; then
+  . ~/dotfiles/bash/bash_git_prompt
+fi
